@@ -62,9 +62,9 @@ router.put('/:id', (req,res) =>{
 router.delete('/:id', (req, res) => {
     const { id } = req.params;
     console.log('dato',id);
-    mysqlConnection.query('DELETE FROM employees WHERE id = ?', [id], (err, rows, fields) =>{
+    mysqlConnection.query('DELETE FROM persona WHERE Identificacion = ?', [id], (err, rows, fields) =>{
         if(!err){
-            res.json({status: 'Employee Deleted'});
+            res.json({status: 'Persona Deleted'});
         } else{
             console.log(err);
         }
