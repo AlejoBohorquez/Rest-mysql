@@ -64,7 +64,7 @@ router.delete('/:id', (req, res) => {
     console.log('dato',id);
     mysqlConnection.query('DELETE FROM persona WHERE Identificacion = ?', [id], (err, rows, fields) =>{
         if(!err){
-            res.json({status: 'Persona Deleted'});
+            res.json({status: 'Persona Borrada'});
         } else{
             console.log(err);
         }
