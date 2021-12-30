@@ -35,7 +35,7 @@ router.post('/',(req, res) =>{
 
     mysqlConnection.query(query, [tipo, identificacion, nombre, apellido, perfil, correo, estado, password, destino, pathfoto, fechadeentrada, fechadesalida], (err, rows, fields) => {
         if(!err){
-            res.json({Status: 'Persona Insertada' });
+            res.status(201).json({Status: 'Persona Insertada' });
         } else {
             console.log(err);
         }
