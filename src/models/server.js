@@ -7,8 +7,8 @@ class Server{
         this.app = express();
         this.port = process.env.PORT;
         this.usuariosPath = '/api/usuarios';
-        //this.usuariosPath1 = '/api/facial';
-        //this.usuariosPath2 = '/api/persona';
+        this.usuariosPath1 = '/api/areas';
+        this.usuariosPath2 = '/api/empresas';
 
 
         //Middlewares
@@ -35,7 +35,9 @@ class Server{
     routes(){
        
        
-       this.app.use(this.usuariosPath,require('../routes/persona'));
+       this.app.use(this.usuariosPath, require('../routes/persona'));
+       this.app.use(this.usuariosPath1, require('../routes/area'));
+       this.app.use(this.usuariosPath2, require('../routes/empresa'));
     }
 
     listen(){
