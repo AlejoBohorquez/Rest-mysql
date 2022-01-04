@@ -24,14 +24,14 @@ const personaGet = (req, res) =>{
 }
 
 const personaPost = (req, res) =>{
-    const { tipo, identificacion, nombre, apellido, perfil, correo, password, estado, destino, pathfoto, fechadeentrada, fechadesalida } = req.body;
+    const { Tipo, Identificacion, Nombre, Apellido, Perfil, Correo, Password, Estado, Destino, Pathfoto, Fechadeentrada, Fechadesalida } = req.body;
     const query = `
     INSERT INTO persona (Tipodeidentificacion, Identificacion, Nombres, Apellidos, Perfil, Correo, Password,
                          Estado, Destino, PathFoto, Fechadeentrada, Fechadesalida)
                          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
-    mysqlConnection.query(query, [tipo, identificacion, nombre, apellido, perfil, correo, estado, password, destino, pathfoto, fechadeentrada, fechadesalida], (err, rows, fields) => {
+    mysqlConnection.query(query, [Tipo, Identificacion, Nombre, Apellido, Perfil, Correo, Estado, Password, Destino, Pathfoto, Fechadeentrada, Fechadesalida], (err, rows, fields) => {
         if(!err){
             res.status(201).json({Status: 'Persona Insertada' });
         } else {
@@ -42,14 +42,14 @@ const personaPost = (req, res) =>{
 }
 
 const personaPut = (req,res) =>{
-    const { estado} =  req.body;
+    const { Estado} =  req.body;
     const { id } = req.params;
-    console.log(id,estado);
+    console.log(id,Estado);
     const query = ' UPDATE persona SET estado= (?) WHERE identificacion = (?)';
-    mysqlConnection.query(query, [estado, id], (err, rows, fields)=>{
+    mysqlConnection.query(query, [Estado, id], (err, rows, fields)=>{
          if(!err)
          {
-             res.json({status: 'persona actualizada'});
+             res.json({status: 'Persona Actualizada'});
          } else {
              console.log('error');
          }
@@ -62,7 +62,7 @@ const personaPut = (req,res) =>{
     console.log('dato',id);
     mysqlConnection.query('DELETE FROM persona WHERE Identificacion = ?', [id], (err, rows, fields) =>{
         if(!err){
-            res.json({status: 'Empleado Borrado'});
+            res.json({status: 'Persona Borrada'});
         } else{
             console.log(err);
         }
