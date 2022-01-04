@@ -25,13 +25,13 @@ const areaGet = (req, res) =>{
 }
 
 const areaPost = (req, res) =>{
-    const { nombre, id } = req.body;
+    const { Nombre, Idempresa } = req.body;
     const query = `
     INSERT INTO area (Nombre, Idempresa)
                          VALUES (?, ?)
     `;
 
-    mysqlConnection.query(query, [nombre, id], (err, rows, fields) => {
+    mysqlConnection.query(query, [Nombre, Idempresa], (err, rows, fields) => {
         if(!err){
             res.status(201).json({Status: 'Area Insertada' });
         } else {
@@ -42,13 +42,13 @@ const areaPost = (req, res) =>{
 }
 
 const areaPut = (req,res) =>{
-    const { nombre} =  req.body;
-    const { idempresa} =  req.body;
-    const { id } = req.params;
-    console.log(id,idempresa,nombre);
+    const { Nombre} =  req.body;
+    const { Idempresa} =  req.body;
+    const { Idarea } = req.params;
+    console.log(Idarea,Idempresa,Nombre);
 
     const query = ' UPDATE area SET Nombre= (?) WHERE idarea = (?)';
-    mysqlConnection.query(query, [nombre, id], (err, rows, fields)=>{
+    mysqlConnection.query(query, [Nombre, Idarea], (err, rows, fields)=>{
          if(!err)
          {
              res.json({status: 'Area Actualizada'});
@@ -60,9 +60,9 @@ const areaPut = (req,res) =>{
  }
 
  const areaDelete = (req, res) => {
-    const { id } = req.params;
-    console.log('borre ',id);
-    mysqlConnection.query('DELETE FROM area WHERE Idarea = ?', [id], (err, rows, fields) =>{
+    const { Idarea } = req.params;
+    console.log('borre ',Idarea);
+    mysqlConnection.query('DELETE FROM area WHERE Idarea = ?', [Idarea], (err, rows, fields) =>{
         if(!err){
             res.json({status: 'Area Borrada'});
         } else{

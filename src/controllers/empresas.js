@@ -12,8 +12,8 @@ const empresasGet = (req, res) =>{
 }
 
 const empresaGet = (req, res) =>{
-    const {id} = req.params;
-    mysqlConnection.query('SELECT * FROM empresa WHERE Idempresa = ?', [id], (err, rows, fields)=>{
+    const {Idempresa} = req.params;
+    mysqlConnection.query('SELECT * FROM empresa WHERE Idempresa = ?', [Idempresa], (err, rows, fields)=>{
         if(!err){
             res.json(rows[0]);
         } else {
@@ -24,14 +24,14 @@ const empresaGet = (req, res) =>{
 }
 
 const empresaPost = (req, res) =>{
-    const { nombre, direccion, id, nit } = req.body;
-    console.log(nombre,direccion,id,nit);
+    const { Nombre, Direccion, Idsuperadmin, Nit } = req.body;
+    console.log(Nombre,Direccion,Idsuperadmin,Nit);
     const query = `
     INSERT INTO empresa (Nombre, Direccion, Idsuperadmin, Nit)
                          VALUES (?, ?, ?, ?)
     `;
 
-    mysqlConnection.query(query, [nombre, direccion, id, nit], (err, rows, fields) => {
+    mysqlConnection.query(query, [Nombre, Direccion, Idsuperadmin, Nit], (err, rows, fields) => {
         if(!err){
             res.status(201).json({Status: 'Empresa Insertada' });
         } else {
@@ -43,14 +43,14 @@ const empresaPost = (req, res) =>{
 
 
 const empresaPut = (req,res) =>{
-    const { nombre} =  req.body;
-    const { direccion} =  req.body;
-    const { nit} =  req.body;
-    const { id } = req.params;
-    console.log(id,nombre,direccion,nit);
+    const { Nombre} =  req.body;
+    const { Direccion} =  req.body;
+    const { Nit} =  req.body;
+    const { Idempresa } = req.params;
+    console.log(Idempresa,Nombre,Direccion,Nit);
 
-    const query = ' UPDATE empresa SET nombre= (?) WHERE Idempresa = (?)';
-    mysqlConnection.query(query, [estado, id], (err, rows, fields)=>{
+    const query = ' UPDATE empresa SET Nombre= (?) WHERE Idempresa = (?)';
+    mysqlConnection.query(query, [Nombre, Idempresa], (err, rows, fields)=>{
          if(!err)
          {
              res.json({status: 'empresa actualizada'});
@@ -62,9 +62,9 @@ const empresaPut = (req,res) =>{
  }
 
  const empresaDelete = (req, res) => {
-    const { id } = req.params;
-    console.log('borra ',id);
-    mysqlConnection.query('DELETE FROM empresa WHERE Idempresa = ?', [id], (err, rows, fields) =>{
+    const { Idempresa } = req.params;
+    console.log('borra ',Idempresa);
+    mysqlConnection.query('DELETE FROM empresa WHERE Idempresa = ?', [Idempresa], (err, rows, fields) =>{
         if(!err){
             res.json({status: 'Empresa Borrada'});
         } else{
