@@ -13,7 +13,7 @@ const empresasGet = (req, res) =>{
 
 const empresaGet = (req, res) =>{
     const {id} = req.params;
-    mysqlConnection.query('SELECT * FROM empresa WHERE idempresa = ?', [id], (err, rows, fields)=>{
+    mysqlConnection.query('SELECT * FROM empresa WHERE Idempresa = ?', [id], (err, rows, fields)=>{
         if(!err){
             res.json(rows[0]);
         } else {
@@ -24,14 +24,14 @@ const empresaGet = (req, res) =>{
 }
 
 const empresaPost = (req, res) =>{
-    const { nombre, direccion, id } = req.body;
-    console.log(nombre,direccion,id);
+    const { nombre, direccion, id, nit } = req.body;
+    console.log(nombre,direccion,id,nit);
     const query = `
-    INSERT INTO empresa (nombre, direccion, idsuperadmin)
-                         VALUES (?, ?, ?)
+    INSERT INTO empresa (Nombre, Direccion, Idsuperadmin, Nit)
+                         VALUES (?, ?, ?, ?)
     `;
 
-    mysqlConnection.query(query, [nombre, direccion, id], (err, rows, fields) => {
+    mysqlConnection.query(query, [nombre, direccion, id, nit], (err, rows, fields) => {
         if(!err){
             res.status(201).json({Status: 'Empresa Insertada' });
         } else {
@@ -45,10 +45,11 @@ const empresaPost = (req, res) =>{
 const empresaPut = (req,res) =>{
     const { nombre} =  req.body;
     const { direccion} =  req.body;
+    const { nit} =  req.body;
     const { id } = req.params;
-    console.log(id,nombre,direccion);
+    console.log(id,nombre,direccion,nit);
 
-    const query = ' UPDATE empresa SET nombre= (?) WHERE idempresa = (?)';
+    const query = ' UPDATE empresa SET nombre= (?) WHERE Idempresa = (?)';
     mysqlConnection.query(query, [estado, id], (err, rows, fields)=>{
          if(!err)
          {
@@ -63,7 +64,7 @@ const empresaPut = (req,res) =>{
  const empresaDelete = (req, res) => {
     const { id } = req.params;
     console.log('borra ',id);
-    mysqlConnection.query('DELETE FROM empresa WHERE idempresa = ?', [id], (err, rows, fields) =>{
+    mysqlConnection.query('DELETE FROM empresa WHERE Idempresa = ?', [id], (err, rows, fields) =>{
         if(!err){
             res.json({status: 'Empresa Borrada'});
         } else{

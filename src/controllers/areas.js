@@ -14,7 +14,7 @@ const areasGet = (req, res) =>{
 
 const areaGet = (req, res) =>{
     const {id} = req.params;
-    mysqlConnection.query('SELECT * FROM area WHERE idarea = ?', [id], (err, rows, fields)=>{
+    mysqlConnection.query('SELECT * FROM area WHERE Idarea = ?', [id], (err, rows, fields)=>{
         if(!err){
             res.json(rows[0]);
         } else {
@@ -27,7 +27,7 @@ const areaGet = (req, res) =>{
 const areaPost = (req, res) =>{
     const { nombre, id } = req.body;
     const query = `
-    INSERT INTO area (nombre, idempresa)
+    INSERT INTO area (Nombre, Idempresa)
                          VALUES (?, ?)
     `;
 
@@ -47,7 +47,7 @@ const areaPut = (req,res) =>{
     const { id } = req.params;
     console.log(id,idempresa,nombre);
 
-    const query = ' UPDATE area SET nombre= (?) WHERE idarea = (?)';
+    const query = ' UPDATE area SET Nombre= (?) WHERE idarea = (?)';
     mysqlConnection.query(query, [nombre, id], (err, rows, fields)=>{
          if(!err)
          {
@@ -62,7 +62,7 @@ const areaPut = (req,res) =>{
  const areaDelete = (req, res) => {
     const { id } = req.params;
     console.log('borre ',id);
-    mysqlConnection.query('DELETE FROM area WHERE idarea = ?', [id], (err, rows, fields) =>{
+    mysqlConnection.query('DELETE FROM area WHERE Idarea = ?', [id], (err, rows, fields) =>{
         if(!err){
             res.json({status: 'Area Borrada'});
         } else{
